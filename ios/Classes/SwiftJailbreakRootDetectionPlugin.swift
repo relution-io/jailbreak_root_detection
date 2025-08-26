@@ -57,6 +57,10 @@ public class SwiftJailbreakRootDetectionPlugin: NSObject, FlutterPlugin {
         case "isJailBroken":
             result(self.jailbreakRootDetection?.checkJailBroken())
             break
+        case "getIOSSecuritySuiteJailbreakStatus":
+            result(self.jailbreakRootDetection?.checkIOSSecuritySuiteJailbreakStatus())
+            break
+            
         case "isRealDevice":
             result(self.jailbreakRootDetection?.checkRealDevice())
             break

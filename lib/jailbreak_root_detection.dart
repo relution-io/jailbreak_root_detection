@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:jailbreak_root_detection/jailbreak_status.dart';
 
 enum JailbreakIssue {
   jailbreak,
@@ -72,6 +73,16 @@ class JailbreakRootDetection {
   /// Support iOS and Android
   Future<bool> get isJailBroken async =>
       await methodChannel.invokeMethod<bool>('isJailBroken') ?? false;
+
+  /// Support iOS
+  Future<JailbreakStatus> getJailbreakStatus() async {
+    final result = await methodChannel.invokeMethod<Map<String, dynamic>?>(
+        'getIOSSecuritySuiteJailbreakStatus');
+
+    var isJailbroken = result?["isJailbroken"] ?? false;
+    var reason = result?["reason"];
+    return JailbreakStatus(isJailbroken: isJailbroken, reason: reason);
+  }
 
   /// Support iOS and Android
   Future<bool> get isRealDevice async =>

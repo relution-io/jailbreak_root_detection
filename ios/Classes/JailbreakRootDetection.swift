@@ -34,6 +34,15 @@ class JailbreakRootDetection {
         || amJailbroken
     }
 
+    func checkIOSSecuritySuiteJailbreakStatus() ->[String: Any]{
+        let result = IOSSecuritySuite.amIJailbrokenWithFailMessage()
+        return [
+                "isJailbroken": result.jailbroken,
+                "reason": result.failMessage
+            ]
+    }
+
+    
     func checkDebugged() -> Bool {
         return IOSSecuritySuite.amIDebugged()
     }
